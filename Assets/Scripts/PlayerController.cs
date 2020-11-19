@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     public static PlayerController instance;
 
-    public Rigidbody2D theRB;
+    public Rigidbody RB; 
 
     public float speed = 5f;
 
@@ -23,6 +23,12 @@ public class PlayerController : MonoBehaviour
 
     public Animator gunAnimation;
 
+
+    public int currentHealth;
+    public int maxHealth=100;
+    public GameObject deadScreen;
+    private bool hasDie = false;
+
     private void Awake()
     {
         instance = this;
@@ -30,18 +36,23 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        currentHealth = maxHealth;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (hasDie)
+        {
+            return;
+        }
         moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
         Vector3 moveHorizontal = transform.up * -moveInput.x;
 
         Vector3 moveVertical = transform.right * moveInput.y;
 
-        theRB.velocity = (moveHorizontal + moveVertical) * speed;
+        RB.velocity = (moveHorizontal + moveVertical) * speed;
 
         //Camera
         mouseInput = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y")) * mouseSentitivity;
@@ -78,6 +89,24 @@ public class PlayerController : MonoBehaviour
                 armo--;
                 gunAnimation.SetTrigger("shoot");
             }
+        }
+    }
+
+    public void takeDamage(int amount)
+    {
+        currentHealth -= amount;
+        if (currentHealth <= 0)
+        {
+            deadScreen.SetActive(true);
+            hasDie = true;
+        }
+    }
+    public void addHealth(int amount)
+    {
+        currentHealth += amount;
+        if (currentHealth > maxHealth)
+        {
+            currentHealth= maxHealth;
         }
     }
 }

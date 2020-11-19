@@ -20,8 +20,9 @@ public class GameManager : MonoBehaviour
 
     void camManager()
     {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.Confined;
         if (
             Input.mousePosition.x <= 0 || 
             Input.mousePosition.y <= 0 || 

@@ -1,0 +1,2 @@
+1 continue tutoriel
+2 resolve gravity problem (modify all objet rotation or change gravity axis Y-> Z)

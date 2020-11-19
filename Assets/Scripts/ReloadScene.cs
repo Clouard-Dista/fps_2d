@@ -1,11 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class pickup : MonoBehaviour
+public class ReloadScene : MonoBehaviour
 {
-
-    public int ammoAmount = 25;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,12 +17,8 @@ public class pickup : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void ResetScene()
     {
-        if(other.tag == "Player")
-        {
-            PlayerController.instance.armo += ammoAmount;
-            Destroy(gameObject);
-        }
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
